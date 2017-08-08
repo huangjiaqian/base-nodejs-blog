@@ -1,0 +1,24 @@
+<div class="row">
+    <% articles.forEach(function(article){%>
+    <div class="news-list">
+        <div class="news-img col-xs-5 col-sm-5 col-md-4"> <a target="_blank" href=""><img src="images/img<%=Math.round(Math.random()*2+1)%>.jpg" alt=""> </a> </div>
+        <div class="news-info col-xs-7 col-sm-7 col-md-8">
+            <dl>
+            <dt> <a href="/article/<%=article._id%>" target="_blank" > <%=article.title%></a> </dt>
+            <dd><span class="name"><a href="" title="由 个人技术博客 发布" rel="author">个人技术博客</a></span> <span class="identity"></span> <span class="time"> <%=dateFormat(article.createTime,'yyyy-mm-dd HH:MM:ss')%> </span></dd>
+            <dd class="text"><%-article.content.length>50?article.content.substring(0,50)+'...':article.content%></dd>
+            </dl>
+        <div class="news_bot col-sm-7 col-md-8"> <span class="tags visible-lg visible-md"> 
+            <%article.tags.forEach(function(tag){%>
+                <a href="<%-contextPath%>/more-article.html?tag=<%=tag._id%>"><%=tag.name%></a>
+            <%});%>
+         </span>
+         <span class="look"> 浏览(<strong><%=article.readNum?article.readNum:0%></strong>)
+         评论(<strong> <%=article.commentNum?article.commentNum:0%> </strong>)
+         赞(<strong> <%=article.niceNum?article.niceNum:0%> </strong>)
+         </span> 
+         </div>
+        </div>
+    </div>
+    <%});%>
+</div>

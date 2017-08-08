@@ -1,0 +1,234 @@
+<!doctype html>
+<%include layout/about-desc.ejs %>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>欢迎来到个人技术博客 - 个人技术博客</title>
+<link href="/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+<link href="/css/style.css" type="text/css" rel="stylesheet">
+<link href="/css/nprogress.css" type="text/css" rel="stylesheet">
+<!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js" type="text/javascript"></script>
+    <script src="/js/respond.min.js" type="text/javascript"></script>
+    <script src="/js/selectivizr-min.js" type="text/javascript"></script>
+<![endif]-->
+<link rel="apple-touch-icon-precomposed" href="/images/icon/icon.png">
+<link rel="shortcut icon" href="/images/icon/favicon.ico">
+<meta name="Keywords" content="" />
+<meta name="description" content="" />
+<script type="text/javascript">
+//判断浏览器是否支持HTML5
+window.onload = function() {
+	if (!window.applicationCache) {
+		window.location.href="ie.html";
+	}
+}
+</script>
+</head>
+
+<body>
+<section class="container">
+  
+  <%include layout/header.ejs %>
+
+  <div class="content-wrap"><!--内容-->
+    <div class="content">
+      <header class="news_header">
+        <h2><%=article.title%></h2>
+        <ul>
+          <li>admin 发布于 <%=dateFormat(article.createTime,'yyyy-mm-dd HH:MM:ss')%></li>
+          
+          <%
+            if(article.column == 'webfront'){
+          %>
+          <li>栏目：<a href="<%=contextPath%>/more-article.html?lm=webfront" title="网站前端" target="_blank">网站前端</a></li>
+          <%    
+            }else{
+          %>
+          <li>栏目：<a href="<%=contextPath%>/more-article.html?lm=webend" title="后端技术" target="_blank">后端技术</a></li>
+          <%    
+            }
+          %>
+          
+          <li>来源：<%-article.fromSource%></li>
+          <li>评论（<strong><%=article.commentNum?article.commentNum:0%></strong>）</li>
+          <li>阅读（<strong><%=article.readNum?article.readNum:0%></strong>）</li>
+          <li>赞（<strong><%=article.niceNum?article.niceNum:0%></strong>）</li>
+        </ul>
+      </header>
+      <article class="news_content">
+        <%-article.content%>
+      </article>
+      <div class="reprint">转载请说明出处：<a href="" title="" target="_blank">黄家钱个人博客</a> » <a href="" title="" target="_blank"><%=article.title%></a></div>
+      <div class="zambia"><a href="javascript:;" name="zambia" rel="<%=article._id%>"><span class="glyphicon glyphicon-thumbs-up"></span> 赞（<%=article.niceNum?article.niceNum:0%>）</a></div>
+      <div class="tags news_tags">标签： 
+      <%article.tags.forEach(function(tag){
+      %>
+      <span data-toggle="tooltip" data-placement="bottom" title="查看关于 <%=tag.name%> 的文章"><a href="<%-contextPath%>/more-article.html?tag=<%=tag._id%>"><%=tag.name%></a></span> 
+      <%});%>
+      
+      </div>
+
+      <nav class="page-nav"> <span class="page-nav-prev">上一篇<br />
+        <%
+          if(sypArticle){
+        %>
+          <a href="/article/<%=sypArticle._id%>" rel="prev"><%=sypArticle.title.length>30?sypArticle.title.substring(0,30)+'...':sypArticle.title%></a>
+        <%    
+          }else{
+        %>
+          <span>没有了</span>
+        <%}%>
+        
+        
+        </span> 
+        <span class="page-nav-next">下一篇<br />
+        <%
+          if(xypArticle){
+        %>
+          <a href="/article/<%=xypArticle._id%>" rel="next"><%=xypArticle.title.length>30?xypArticle.title.substring(0,30)+'...':xypArticle.title%></a>
+        <%    
+          }else{
+        %>
+          <span class='pull-right'>没有了</span>
+        <%}%>
+        </span> </nav>
+
+        <div class="content-block">
+          <h2 class="title"><strong>相关推荐</strong></h2>
+          <ul style="">
+          <%xgArticles.forEach(function(xgArticle){%>
+            <li style="margin-top: 6px;"><a target="_blank" href="<%=contextPath%>/article/<%=xgArticle._id%>">
+            <h5><%=xgArticle.title.length>30?xgArticle.title.substring(0,30)+'...':xgArticle.title%></h5>
+            </a></li>
+          <%});%>
+          </ul>
+        </div>
+        <!--
+      <div class="content-block related-content visible-lg visible-md">
+        <h2 class="title"><strong>相关推荐</strong></h2>
+        <ul>
+          
+          
+          <li><a target="_blank" href=""><img src="/images/logo.jpg" alt="">
+            <h3> 欢迎来到个人技术博客,在这里可以看到网站前端和后端的技术等 </h3>
+            </a></li>
+          <li><a target="_blank" href=""><img src="/images/img1.jpg" alt="">
+            <h3> 欢迎来到个人技术博客,在这里可以看到网站前端和后端的技术等 </h3>
+            </a></li>
+          <li><a target="_blank" href=""><img src="/images/img3.jpg" alt="">
+            <h3> 欢迎来到个人技术博客，在这里可以看到网站前端和后端的技术等 </h3>
+            </a></li>
+          <li><a target="_blank" href=""><img src="/images/img2.jpg" alt="">
+            <h3> 欢迎来到个人技术博客，在这里可以看到网站前端和后端的技术等 </h3>
+            </a></li>
+          <li><a target="_blank" href=""><img src="/images/img2.jpg" alt="">
+            <h3> 欢迎来到个人技术博客,在这里可以看到网站前端和后端的技术等 </h3>
+            </a></li>
+          <li><a target="_blank" href=""><img src="/images/img3.jpg" alt="">
+            <h3> 欢迎来到个人技术博客,在这里可以看到网站前端和后端的技术等 </h3>
+            </a></li>
+          <li><a target="_blank" href=""><img src="/images/img1.jpg" alt="">
+            <h3> 欢迎来到个人技术博客，在这里可以看到网站前端和后端的技术等 </h3>
+            </a></li>
+          <li><a target="_blank" href=""><img src="/images/logo.jpg" alt="">
+            <h3> 欢迎来到个人技术博客，在这里可以看到网站前端和后端的技术等 </h3>
+            </a></li>
+          
+        </ul>
+      </div>
+      -->
+      <div class="content-block comment">
+        <h2 class="title"><strong>评论</strong></h2>
+        <form action="<%=contextPath%>/comment/toComment.do" method="post" class="form-inline" id="comment-form">
+          <div class="comment-title">
+            <div class="form-group">
+              <label for="commentName">昵称：</label>
+              <input type="hidden" name="articleId" value="<%=article._id%>">
+              <input type="text" name="commentName" class="form-control" id="commentName" placeholder="技术博客">
+            </div>
+            <div class="form-group">
+              <label for="commentEmail">邮箱：</label>
+              <input type="email" name="commentEmail" class="form-control" id="commentEmail" placeholder="admin@xxxx.com">
+            </div>
+          </div>
+          <div class="comment-form">
+            <textarea placeholder="你的评论可以一针见血" name="commentContent"></textarea>
+            <div class="comment-form-footer">
+              <!--
+              <div class="comment-form-text">请先 <a href="javascript:;">登录</a> 或 <a href="javascript:;">注册</a>，也可匿名评论 </div>
+              -->
+              <div class="comment-form-btn">
+                <button type="submit" class="btn btn-default btn-comment">提交评论</button>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div class="comment-content">
+          <h2 class="title"><strong>评论列表</strong></h2>
+          <ul>
+            <%
+              if(!comments || comments.length<1){
+            %>
+              <div align="center" style="margin-top:4em;margin-bottom:4em;">
+                <p>暂时还没有评论，来抢个沙发吧！</p>
+              </div>
+            <%
+              }else comments.forEach(function(comment){
+            %>
+              <li><span class="face"><img src="/images/icon/icon.png" alt=""></span> 
+                  <span class="text"><strong><%=comment.name%></strong> (<%=dateFormat(comment.createTime,'yyyy-mm-dd HH:MM:ss')%>) 说：<br />
+                    <%=comment.content%>
+                  </span>
+              </li>
+            <%
+              });
+            %>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/内容-->
+
+  <%include layout/aside.ejs %>
+  <%include layout/footer.ejs %>
+
+  
+</section>
+<div><a href="javascript:;" class="gotop" style="display:none;"></a></div>
+<!--/返回顶部--> 
+
+<%include layout/scripts.ejs %>
+<script type="text/javascript">
+//向后台zambia.php发送ajax请求，请求响应成功后，更新原有的数值
+$(function(){
+    $(".content .zambia a").click(function(){
+        var zambia = $(this);   
+        var id = zambia.attr("rel"); //对应id   
+        zambia.fadeOut(1000); //渐隐效果   
+        $.ajax({   
+            type:"POST",   
+            url:"/article/zambia/"+id,   
+            data:"id="+id,
+            cache:false, //不缓存此页面   
+            success:function(data){
+                if(data.status == 'true'){
+                  zambia.html(data.text);
+                  zambia.fadeIn(1000); //渐显效果   
+                }else{
+                  zambia.fadeIn(1000); //渐显效果   
+                  alert('您以赞过该资源！');
+                }
+                
+            }   
+        });   
+        return false;   
+    });   
+})
+</script>
+</body>
+</html>
